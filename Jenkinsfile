@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    environment {
+        SONARQUBE_SERVER = 'MySonarQubeServer' // Name as configured in Jenkins
+    }
+
     stages {
         stage('Build') {
             steps {
@@ -19,7 +23,9 @@ pipeline {
         stage('Code Analysis') {
             steps {
                 echo 'Analyzing code...'
-                sh 'sonar-scanner'
+                withSonarQubeEnv(SONARQUBE_SERVER) {
+                    sh 'sonar-scanner'
+                }
             }
         }
 
