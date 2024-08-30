@@ -9,14 +9,14 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building the code...'
-                sh 'mvn clean install' // Ensure Maven is installed and in PATH
+                bat 'mvn clean install' // Use bat for Windows
             }
         }
 
         stage('Unit and Integration Tests') {
             steps {
                 echo 'Running unit and integration tests...'
-                sh 'mvn test'
+                bat 'mvn test' // Use bat for Windows
             }
         }
 
@@ -24,7 +24,7 @@ pipeline {
             steps {
                 echo 'Analyzing code...'
                 withSonarQubeEnv(SONARQUBE_SERVER) {
-                    sh 'sonar-scanner' // Ensure SonarQube Scanner is installed and in PATH
+                    bat '"C:\\Users\\milan\\Downloads\\sonarqube-10.6.0.92116\\sonarqube-10.6.0.92116\\bin\\sonar-scanner.bat" -Dsonar.projectKey=my-project-key -Dsonar.sources=.' // Use bat for Windows and ensure full path
                 }
             }
         }
@@ -32,28 +32,28 @@ pipeline {
         stage('Security Scan') {
             steps {
                 echo 'Performing security scan...'
-                sh './dependency-check.sh' // Ensure script is executable and in PATH
+                bat './dependency-check.bat' // Use bat for Windows
             }
         }
 
         stage('Deploy to Staging') {
             steps {
                 echo 'Deploying to staging...'
-                sh './deploy-to-staging.sh' // Ensure script is executable and in PATH
+                bat './deploy-to-staging.bat' // Use bat for Windows
             }
         }
 
         stage('Integration Tests on Staging') {
             steps {
                 echo 'Running integration tests on staging...'
-                sh './run-integration-tests.sh' // Ensure script is executable and in PATH
+                bat './run-integration-tests.bat' // Use bat for Windows
             }
         }
 
         stage('Deploy to Production') {
             steps {
                 echo 'Deploying to production...'
-                sh './deploy-to-production.sh' // Ensure script is executable and in PATH
+                bat './deploy-to-production.bat' // Use bat for Windows
             }
         }
     }
