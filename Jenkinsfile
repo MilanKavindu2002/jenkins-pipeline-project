@@ -65,14 +65,14 @@ pipeline {
             emailext(
                 subject: 'Build Successful',
                 body: 'The build was successful.',
-                to: 'your-email@example.com'
+                to: 'milankavindu174@gmail.com'
             )
         }
         failure {
             emailext(
                 subject: 'Build Failed',
                 body: 'The build failed. Check the logs for details.',
-                to: 'your-email@example.com'
+                to: 'milankavindu174@gmail.com'
             )
         }
     }
