@@ -5,24 +5,22 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <!-- Project coordinates -->
+
     <groupId>com.example</groupId>
     <artifactId>my-project</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <!-- Project name and description -->
     <name>My Project</name>
     <description>A simple Maven project</description>
 
-    <!-- Specify the Java version -->
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
     </properties>
 
-    <!-- Define dependencies -->
+
     <dependencies>
-        <!-- Example dependency -->
+    
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
@@ -30,7 +28,7 @@
         </dependency>
     </dependencies>
 
-    <!-- Define build plugins -->
+ 
     <build>
         <plugins>
             <plugin>
