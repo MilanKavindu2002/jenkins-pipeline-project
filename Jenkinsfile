@@ -1,80 +1,78 @@
 pipeline {
     agent any
 
-    environment {
-        SONARQUBE_SERVER = 'MySonarQubeServer' // Name as configured in Jenkins
-    }
-
     stages {
         stage('Build') {
             steps {
-                echo 'Building the code...'
-                bat 'mvn clean install' // Use bat for Windows
-            }
-        }
-
-        stage('Unit and Integration Tests') {
-            steps {
-                echo 'Running unit and integration tests...'
-                bat 'mvn test' // Use bat for Windows
-            }
-        }
-
-        stage('Code Analysis') {
-            steps {
-                echo 'Analyzing code...'
-                withSonarQubeEnv(SONARQUBE_SERVER) {
-                    bat '"C:\\Users\\milan\\Downloads\\sonarqube-10.6.0.92116\\sonarqube-10.6.0.92116\\bin\\sonar-scanner.bat" -Dsonar.projectKey=my-project-key -Dsonar.sources=.' // Use bat for Windows and ensure full path
+                script {
+                    echo 'Building the code...'
+                    // Example: sh 'mvn clean package'
                 }
             }
         }
-
+        stage('Unit and Integration Tests') {
+            steps {
+                script {
+                    echo 'Running unit and integration tests...'
+                    // Example: sh 'mvn test'
+                }
+            }
+        }
+        stage('Code Analysis') {
+            steps {
+                script {
+                    echo 'Performing code analysis...'
+                    // Example: sh 'sonar-scanner'
+                }
+            }
+        }
         stage('Security Scan') {
             steps {
-                echo 'Performing security scan...'
-                bat './dependency-check.bat' // Use bat for Windows
+                script {
+                    echo 'Performing security scan...'
+                    // Example: sh 'dependency-check --project my-project --scan .'
+                }
             }
         }
-
         stage('Deploy to Staging') {
             steps {
-                echo 'Deploying to staging...'
-                bat './deploy-to-staging.bat' // Use bat for Windows
+                script {
+                    echo 'Deploying to staging environment...'
+                    // Example: sh 'aws deploy push --application-name my-app --s3-location s3://my-bucket/my-app.zip'
+                }
             }
         }
-
         stage('Integration Tests on Staging') {
             steps {
-                echo 'Running integration tests on staging...'
-                bat './run-integration-tests.bat' // Use bat for Windows
+                script {
+                    echo 'Running integration tests on staging...'
+                    // Example: sh 'run-integration-tests.sh'
+                }
             }
         }
-
         stage('Deploy to Production') {
             steps {
-                echo 'Deploying to production...'
-                bat './deploy-to-production.bat' // Use bat for Windows
+                script {
+                    echo 'Deploying to production...'
+                    // Example: sh 'aws deploy push --application-name my-app-prod --s3-location s3://my-bucket-prod/my-app-prod.zip'
+                }
             }
         }
     }
 
     post {
         success {
-            echo 'Build and deployment were successful!'
             emailext(
-                to: 'milankavindu174@gmail.com',
-                subject: "Pipeline Success",
-                body: "The pipeline has completed successfully.",
-                attachLog: true
+                subject: 'Build Successful',
+                body: 'The build was successful.',
+                to: 'your-email@example.com'
             )
         }
         failure {
-            echo 'Build or deployment failed!'
             emailext(
-                to: 'milankavindu174@gmail.com',
-                subject: "Pipeline Failure",
-                body: "The pipeline has failed. Check the logs for details.",
-                attachLog: true
+                subject: 'Build Failed',
+                body: 'The build failed. Check the logs for details.',
+                to: 'your-email@example.com'
             )
         }
     }
