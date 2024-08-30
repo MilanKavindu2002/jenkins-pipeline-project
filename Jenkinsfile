@@ -1,7 +1,5 @@
 pipeline {
-    agent {
-        label 'windows' // Ensure this matches the label of your Windows node
-    }
+    agent any
 
     environment {
         SONARQUBE_SERVER = 'MySonarQubeServer' // Name as configured in Jenkins
@@ -11,14 +9,14 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building the code...'
-                bat 'mvn clean install'
+                bat 'mvn clean install' // Use bat for Windows
             }
         }
 
         stage('Unit and Integration Tests') {
             steps {
                 echo 'Running unit and integration tests...'
-                bat 'mvn test'
+                bat 'mvn test' // Use bat for Windows
             }
         }
 
@@ -26,7 +24,7 @@ pipeline {
             steps {
                 echo 'Analyzing code...'
                 withSonarQubeEnv(SONARQUBE_SERVER) {
-                    bat '"C:\\Users\\milan\\Downloads\\sonarqube-10.6.0.92116\\sonarqube-10.6.0.92116\\bin\\sonar-scanner.bat" -Dsonar.projectKey=my-project-key -Dsonar.sources=.'
+                    bat '"C:\\Users\\milan\\Downloads\\sonarqube-10.6.0.92116\\sonarqube-10.6.0.92116\\bin\\sonar-scanner.bat" -Dsonar.projectKey=my-project-key -Dsonar.sources=.' // Use bat for Windows and ensure full path
                 }
             }
         }
@@ -34,28 +32,28 @@ pipeline {
         stage('Security Scan') {
             steps {
                 echo 'Performing security scan...'
-                bat 'dependency-check.bat' // Assuming this script is in the working directory
+                bat './dependency-check.bat' // Use bat for Windows
             }
         }
 
         stage('Deploy to Staging') {
             steps {
                 echo 'Deploying to staging...'
-                bat 'deploy-to-staging.bat' // Assuming this script is in the working directory
+                bat './deploy-to-staging.bat' // Use bat for Windows
             }
         }
 
         stage('Integration Tests on Staging') {
             steps {
                 echo 'Running integration tests on staging...'
-                bat 'run-integration-tests.bat' // Assuming this script is in the working directory
+                bat './run-integration-tests.bat' // Use bat for Windows
             }
         }
 
         stage('Deploy to Production') {
             steps {
                 echo 'Deploying to production...'
-                bat 'deploy-to-production.bat' // Assuming this script is in the working directory
+                bat './deploy-to-production.bat' // Use bat for Windows
             }
         }
     }
