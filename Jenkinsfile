@@ -1,11 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-        // Define any environment variables you need here
-        // For example: JAVA_HOME, MAVEN_HOME, etc.
-    }
-
     stages {
         stage('Build') {
             steps {
