@@ -6,7 +6,7 @@ pipeline {
             steps {
                 script {
                     echo 'Building the code...'
-                    // Example: sh 'mvn clean package'
+                    
                 }
             }
         }
@@ -14,7 +14,7 @@ pipeline {
             steps {
                 script {
                     echo 'Running unit and integration tests...'
-                    // Example: sh 'mvn test'
+                   
                 }
             }
         }
@@ -22,7 +22,7 @@ pipeline {
             steps {
                 script {
                     echo 'Performing code analysis...'
-                    // Example: sh 'sonar-scanner'
+                   
                 }
             }
         }
@@ -30,7 +30,7 @@ pipeline {
             steps {
                 script {
                     echo 'Performing security scan...'
-                    // Example: sh 'dependency-check --project my-project --scan .'
+                   
                 }
             }
         }
@@ -38,7 +38,7 @@ pipeline {
             steps {
                 script {
                     echo 'Deploying to staging environment...'
-                    // Example: sh 'aws deploy push --application-name my-app --s3-location s3://my-bucket/my-app.zip'
+                   
                 }
             }
         }
@@ -46,7 +46,7 @@ pipeline {
             steps {
                 script {
                     echo 'Running integration tests on staging...'
-                    // Example: sh 'run-integration-tests.sh'
+                  
                 }
             }
         }
@@ -54,7 +54,7 @@ pipeline {
             steps {
                 script {
                     echo 'Deploying to production...'
-                    // Example: sh 'aws deploy push --application-name my-app-prod --s3-location s3://my-bucket-prod/my-app-prod.zip'
+                   
                 }
             }
         }
