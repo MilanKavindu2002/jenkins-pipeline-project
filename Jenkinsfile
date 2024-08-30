@@ -5,7 +5,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building the code...'
-                sh 'mvn clean install' // Ensure Maven is installed and accessible
+                sh 'mvn clean install' // Ensure Maven is installed and in PATH
             }
         }
 
