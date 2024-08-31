@@ -4,58 +4,44 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                script {
-                    echo 'Building the code...'
-                    
-                }
+                echo 'Building...'
+                // Example command: sh 'mvn clean install'
             }
         }
         stage('Unit and Integration Tests') {
             steps {
-                script {
-                    echo 'Running unit and integration tests...'
-                   
-                }
+                echo 'Running Unit and Integration Tests...'
+                // Example command: sh 'mvn test'
             }
         }
         stage('Code Analysis') {
             steps {
-                script {
-                    echo 'Performing code analysis...'
-                   
-                }
+                echo 'Running Code Analysis...'
+                // Use a tool like SonarQube
             }
         }
         stage('Security Scan') {
             steps {
-                script {
-                    echo 'Performing security scan...'
-                   
-                }
+                echo 'Running Security Scan...'
+                // Use a tool like OWASP Dependency-Check
             }
         }
         stage('Deploy to Staging') {
             steps {
-                script {
-                    echo 'Deploying to staging environment...'
-                   
-                }
+                echo 'Deploying to Staging...'
+                // Example command: sh 'deploy-to-staging.sh'
             }
         }
         stage('Integration Tests on Staging') {
             steps {
-                script {
-                    echo 'Running integration tests on staging...'
-                  
-                }
+                echo 'Running Integration Tests on Staging...'
+                // Run integration tests in the staging environment
             }
         }
         stage('Deploy to Production') {
             steps {
-                script {
-                    echo 'Deploying to production...'
-                   
-                }
+                echo 'Deploying to Production...'
+                // Example command: sh 'deploy-to-prod.sh'
             }
         }
     }
@@ -63,16 +49,30 @@ pipeline {
     post {
         success {
             emailext(
-                subject: 'Build Successful',
-                body: 'The build was successful.',
-                to: 'milankavindu174@gmail.com'
+                subject: "Jenkins Pipeline Success: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                body: """
+                    The Jenkins pipeline ${env.JOB_NAME} build #${env.BUILD_NUMBER} completed successfully.
+                    
+                    Check the build details at: ${env.BUILD_URL}
+
+                    - Build Status: SUCCESS
+                """,
+                to: 'milankavindu174@gmail.com',
+                attachLog: true
             )
         }
         failure {
             emailext(
-                subject: 'Build Failed',
-                body: 'The build failed. Check the logs for details.',
-                to: 'milankavindu174@gmail.com'
+                subject: "Jenkins Pipeline Failure: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                body: """
+                    The Jenkins pipeline ${env.JOB_NAME} build #${env.BUILD_NUMBER} has failed.
+                    
+                    Check the build details at: ${env.BUILD_URL}
+
+                    - Build Status: FAILURE
+                """,
+                to: 'milankavindu174@gmail.com',
+                attachLog: true
             )
         }
     }
